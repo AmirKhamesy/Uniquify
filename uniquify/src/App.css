@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+div{
+  margin: 15px;
+}
+
+input{
+  border-radius: 10px;
+}
+
+ol{
+  width: 40%;
+  display: inline-block;
+  border-radius: 10px;
+  margin: 5px;
+  text-align: left;
+  vertical-align: top;
+}
+
+ol li{
+  background: white;
+  padding: 5px;
+  margin: 3px;
+}
+
+#list1{
+  background:#198d42;
+}
+#list2{
+  background:#198d42;
+}
