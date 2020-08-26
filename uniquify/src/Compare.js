@@ -57,9 +57,11 @@ export default class Compare extends Component {
     render() {
         return (
             <div className={CompareStyles.wrapper} id={CompareStyles.wrapper} >
-            
-                <input type="text" id='playList1' onChange={event => this.state.list1 = event.target.value}></input>
-                <input type="text" id='playList2' onChange={event => this.state.list2 = event.target.value}></input><br></br>
+                <h3>Welcome to Uniquify!</h3><br></br>
+                <p>To get started simply put 2 Spotify playlists IDs which can be located under "share" then click "Copy Spotify URI"</p>
+                <p>Keep in mind both playlist that you want to compare have to be PUBLIC!</p>
+                <input type="text" id='playList1' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list1: pID})}else{this.setState({list1: event.target.value})}}}></input>
+                <input type="text" id='playList2' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list2: pID})}else{this.setState({list2: event.target.value})}}}></input><br></br>
                 <button onClick={this.handleButtonClick}>Get list</button><br></br>
                 <ol id="list1">
                     {this.state.songs1.map(song => <Song name={song["name"]} repeated={song["repeated"]} key={song["name"]+Math.random()}/>)}
