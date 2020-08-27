@@ -99,6 +99,18 @@ const getSongs = async (playlistID) => {
     return songs.map(song => song.track.name + " by " + song.track.album.artists[0]["name"]);
 }
 
+const getPlaylistName = async (playlistID) => {
+    let playlistName = "";
+    let response;
+    try{
+        response = await spotifyApi.getPlaylist(playlistID);
+        playlistName = response.body["name"];
+    }catch{
+        return {error: "failed to get playlist name"}
+    }
+    return playlistName;
+}
+
 
 
 app.get("/compare", async (req, res) => {
@@ -116,7 +128,8 @@ app.get("/compare", async (req, res) => {
     // console.log('The access token expires in ' + data.body['expires_in']);
     // console.log('The access token is ' + data.body['access_token']);
     
-
+    let playlistName1 = await getPlaylistName(req.query.song1);
+    let playlistName2 = await getPlaylistName(req.query.song2);
 
     let songs1 = await getSongs(req.query.song1);
 
@@ -132,12 +145,19 @@ app.get("/compare", async (req, res) => {
         return;
     }
 
+    
+
+    // console.log(playlistName1)
+    // console.log(playlistName2)
+
     console.log(songs1.length);
     console.log(songs2.length);
     
     res.json({
         songs1,
-        songs2
+        songs2,
+        playlistName1,
+        playlistName2
     });
 })
 

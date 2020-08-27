@@ -1,0 +1,41 @@
+body{
+    background-color: grey;
+}
+
+
+div{
+    margin: 15px;
+  }
+  
+  input{
+    border-radius: 10px;
+    border: 10px;
+    margin:7px;
+  }
+  
+  ol{
+    width: 40%;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 2%;
+    text-align: left;
+    vertical-align: top;
+    box-shadow:20px 20px 50px 15px black;  
+  }
+  
+  ol li{
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  ol[title]::before {
+    content: attr(title);
+    /* then add some nice styling as needed, eg: */
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+  
+  
