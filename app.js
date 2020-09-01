@@ -13,29 +13,6 @@ arrayLength2 = 0;
 const publicPath = path.join(__dirname, 'build');
 app.use(express.static(publicPath));
 
-// app.get("/compare", (req, res) => {
-
-// var clientId = '5e93e86ebd0240ad82397fb370e29a52',
-//   clientSecret = 'f4dad63343d149adbe219220c81624e6';
-
-//   var spotifyApi = new SpotifyWebApi({
-//     clientId: clientId,
-//     clientSecret: clientSecret
-//   });
-//   spotifyApi.clientCredentialsGrant().then(data => {
-//       console.log('The access token expires in ' + data.body['expires_in']);
-//       console.log('The access token is ' + data.body['access_token']);
-//       spotifyApi.setAccessToken(data.body['access_token']);
-//     //   spotifyApi.getPlaylistTracks("2uwblsTCKkwr4fyTMh2qeI", {offset: 0, limit: 5}).then((response) => response.body.items.forEach((thing)=> {emptyArray.push(thing.track), console.log(emptyArray)}));
-//       console.log(res)
-//     },
-//     function(err) {
-//         console.log('Something went wrong when retrieving an access token', err);
-//     }
-//     );
-
-
-// })
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -164,76 +141,9 @@ app.get("/compare", async (req, res) => {
     });
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Example app listening on port ${port}! (root)`))
 
 
 
 
 
-// app.post("*", (req,res) => {
-//     console.log(req.body);
-//     res.json('["test"]');
-// })
-
-// https://api.spotify.com/v1/playlists/2uwblsTCKkwr4fyTMh2qeI/tracks
-
-// var clientId = '5e93e86ebd0240ad82397fb370e29a52',
-// clientSecret = 'f4dad63343d149adbe219220c81624e6';
-
-//       var spotifyApi = new SpotifyWebApi({
-//         clientId: clientId,
-//         clientSecret: clientSecret
-//       });
-
-
-//   spotifyApi.clientCredentialsGrant().then(
-//     function(data) {
-//       console.log('The access token expires in ' + data.body['expires_in']);
-//       console.log('The access token is ' + data.body['access_token']);
-
-//       // Save the access token so that it's used in future calls
-//       spotifyApi.setAccessToken(data.body['access_token']);
-//       spotifyApi.getPlaylistTracks("2uwblsTCKkwr4fyTMh2qeI", {offset: 0, limit: 5}).then((response) => console.log(response.body.items.forEach((thing)=> console.log(thing.track.name))))
-//     //   spotifyApi.getPlaylistTracks("2uwblsTCKkwr4fyTMh2qeI", {offset: 0, limit: 10}).then((response) => console.log(response))
-//     },
-//     function(err) {
-//       console.log('Something went wrong when retrieving an access token', err);
-//     }
-//   );
-
-// //   var spotifyApi = new SpotifyWebApi({
-// //     accessToken: 'njd9wng4d0ycwnn3g4d1jm30yig4d27iom5lg4d3'
-// //   });
-
-// //   Get tracks in a playlist
-
-
-// // your application requests authorization
-// // var authOptions = {
-// //   url: 'https://accounts.spotify.com/api/token',
-// //   headers: {
-// //     'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-// //   },
-// //   form: {
-// //     grant_type: 'client_credentials'
-// //   },
-// //   json: true
-// // };
-
-// // request.post(authOptions, function(error, response, body) {
-// //   if (!error && response.statusCode === 200) {
-
-// //     // use the access token to access the Spotify Web API
-// //     var token = body.access_token;
-// //     var options = {
-// //       url: 'https://api.spotify.com/v1/users/jmperezperez',
-// //       headers: {
-// //         'Authorization': 'Bearer ' + token
-// //       },
-// //       json: true
-// //     };
-// //     request.get(options, function(error, response, body) {
-// //       console.log(body);
-// //     });
-// //   }
-// // });
