@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 var SpotifyWebApi = require('spotify-web-api-node');
-const port = 5000;
+const port = process.env.PORT || 5000;
 const path = require('path');
 const { response } = require('express');
 const { log } = require('console');
@@ -116,7 +116,7 @@ const getPlaylistName = async (playlistID) => {
 
 
 
-app.get("*", async (req, res) => {
+app.get("/compare", async (req, res) => {
     // console.log(req.query.song1);
     // console.log(req.query.song2);
 
@@ -165,6 +165,7 @@ app.get("*", async (req, res) => {
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
 
 
 
