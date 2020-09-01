@@ -93,7 +93,7 @@ const getPlaylistName = async (playlistID) => {
 
 
 
-app.get("/compare", async (req, res) => {
+app.get("*", async (req, res) => {
     // console.log(req.query.song1);
     // console.log(req.query.song2);
 
