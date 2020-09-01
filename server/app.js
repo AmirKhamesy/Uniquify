@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 var SpotifyWebApi = require('spotify-web-api-node');
-const port = 5000;
+const port = process.env.PORT || 5000;
 const path = require('path');
 const { response } = require('express');
 const { log } = require('console');
