@@ -10,7 +10,7 @@ arrayLength1 = 0;
 arrayLength2 = 0;
 
 
-const publicPath = path.join(__dirname, 'build');
+const publicPath = path.join(__dirname, 'uniquify/build');
 app.use(express.static(publicPath));
 
 
