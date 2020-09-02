@@ -92,8 +92,11 @@ const getPlaylistName = async (playlistID) => {
 }
 
 
+app.get("/", (req,res)=> {
+    res.sendFile(path.join(__dirname, 'uniquify/build', 'index.html'));
+})
 
-app.get("*", async (req, res) => {
+app.get("/compare", async (req, res) => {
     // console.log(req.query.song1);
     // console.log(req.query.song2);
 

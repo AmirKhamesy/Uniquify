@@ -54,7 +54,7 @@ export default class Compare extends Component {
     }
 
     handleButtonClick = () => {
-        const req = new URL("http://localhost:5000/compare/");
+        const req = new URL("https://uniquify.herokuapp.com/compare/");
         req.searchParams.append("song1", this.state.list1);
         req.searchParams.append("song2", this.state.list2);
 
