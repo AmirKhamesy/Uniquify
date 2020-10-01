@@ -44,3 +44,10 @@
 #list2{
   background:#198d42;
 }
+
+@media  (max-width:600px){
+  #list1, #list2{
+    padding-inline-start: 20px;
+    width: 15em;
+  }
+}

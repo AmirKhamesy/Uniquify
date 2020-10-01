@@ -13,29 +13,6 @@ arrayLength2 = 0;
 const publicPath = path.join(__dirname, 'build');
 app.use(express.static(publicPath));
 
-// app.get("/compare", (req, res) => {
-
-// var clientId = '5e93e86ebd0240ad82397fb370e29a52',
-//   clientSecret = 'f4dad63343d149adbe219220c81624e6';
-
-//   var spotifyApi = new SpotifyWebApi({
-//     clientId: clientId,
-//     clientSecret: clientSecret
-//   });
-//   spotifyApi.clientCredentialsGrant().then(data => {
-//       console.log('The access token expires in ' + data.body['expires_in']);
-//       console.log('The access token is ' + data.body['access_token']);
-//       spotifyApi.setAccessToken(data.body['access_token']);
-//     //   spotifyApi.getPlaylistTracks("2uwblsTCKkwr4fyTMh2qeI", {offset: 0, limit: 5}).then((response) => response.body.items.forEach((thing)=> {emptyArray.push(thing.track), console.log(emptyArray)}));
-//       console.log(res)
-//     },
-//     function(err) {
-//         console.log('Something went wrong when retrieving an access token', err);
-//     }
-//     );
-
-
-// })
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
