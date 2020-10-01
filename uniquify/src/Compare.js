@@ -55,9 +55,9 @@ export default class Compare extends Component {
 
     handleButtonClick = () => {
         const req = new URL("https://uniquify.herokuapp.com/compare/");
+        document.getElementById('loader').style.display = 'block';
         req.searchParams.append("song1", this.state.list1);
         req.searchParams.append("song2", this.state.list2);
-
         try{
             fetch(req)
                 .then(res => res.json())
@@ -65,6 +65,7 @@ export default class Compare extends Component {
                     console.log(res);
                     this.comparePlaylist(res.songs1,res.songs2);
                     this.addPlaylistName(res.playlistName1, res.playlistName2);
+                    document.getElementById('loader').style.display = 'none';
                 })
         }catch{
             console.log("failed to fetch");
@@ -78,12 +79,13 @@ export default class Compare extends Component {
     render() {
         return (
             <div className={CompareStyles.wrapper} id={CompareStyles.wrapper} >
-                <h3>Welcome to Uniquify!</h3><br></br>
+                <h3>Welcome to Uniquify!</h3><br></br> 
                 <p>To get started simply put two Spotify playlists IDs which can be located under "share" then click "Copy Spotify URI"</p>
                 <p>Keep in mind both playlist that you want to compare have to be PUBLIC!</p>
                 <input type="text" id='playList1' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list1: pID})}else{this.setState({list1: event.target.value})}}}></input>
                 <input type="text" id='playList2' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list2: pID})}else{this.setState({list2: event.target.value})}}}></input><br></br>
                 <button onClick={this.handleButtonClick}>Get list</button><br></br>
+                <div id="loader"></div>
                 <ol id="list1" title={this.state.playlistName1} onClick={this.hideNonUnique.bind(this)}>
                     {this.state.songs1.filter(song => this.state.showRepeated || !song["repeated"]).map(song => <Song name={song["name"]} repeated={song["repeated"]} key={song["name"]+Math.random()}/>)}
                 </ol>
