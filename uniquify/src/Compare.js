@@ -75,6 +75,37 @@ export default class Compare extends Component {
     hideNonUnique() {
         this.setState({showRepeated: !this.state.showRepeated})
     }
+    changeInput1(event) {
+        //Change playlist ID URI
+        if(event.target.value.includes("spotify:playlist:")){
+            var pID = event.target.value.replace("spotify:playlist:", "");
+            this.setState({list1: pID});
+        //Chance playlist ID link
+        }else if (event.target.value.includes("https://open.spotify.com/playlist/")) {
+            var pID = event.target.value.substr(34,22);
+            this.setState({list1: pID});
+        //Assume its raw playlist ID
+        }else {
+            this.setState({list1: event.target.value});
+        }
+    }
+    changeInput2(event) {
+        //Change playlist ID URI
+        if(event.target.value.includes("spotify:playlist:")){
+            var pID = event.target.value.replace("spotify:playlist:", "");
+            this.setState({list2: pID});
+        //Chance playlist ID link
+        }else if (event.target.value.includes("https://open.spotify.com/playlist/")) {
+            var pID = event.target.value.substr(34,22);
+            this.setState({list2: pID});
+        //Assume its raw playlist ID
+        }else {
+            this.setState({list2: event.target.value});
+        }
+    }
+    //https://open.spotify.com/playlist/3wgGItoJDDLMDUBCdYBQ2d?si=Bw0DiT0bQR6EZEF96GEO6w
+    //https://open.spotify.com/playlist/2uwblsTCKkwr4fyTMh2qeI?si=zKs-_abBQDuDXb8X2jXzyQ
+
     
     render() {
         return (
@@ -82,8 +113,10 @@ export default class Compare extends Component {
                 <h3>Welcome to Uniquify!</h3><br></br> 
                 <p>To get started simply put two Spotify playlists IDs which can be located under "share" then click "Copy Spotify URI"</p>
                 <p>Keep in mind both playlist that you want to compare have to be PUBLIC!</p>
-                <input type="text" id='playList1' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list1: pID})}else{this.setState({list1: event.target.value})}}}></input>
-                <input type="text" id='playList2' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list2: pID})}else{this.setState({list2: event.target.value})}}}></input><br></br>
+                <input type="text" id='playList1' onChange={event => this.changeInput1(event)}></input>
+                <input type="text" id='playList2' onChange={event => this.changeInput2(event)}></input><br></br>
+                {/* <input type="text" id='playList1' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list1: pID})}else{this.setState({list1: event.target.value})}}}></input>
+                <input type="text" id='playList2' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list2: pID})}else{this.setState({list2: event.target.value})}}}></input><br></br> */}
                 <button onClick={this.handleButtonClick}>Get list</button><br></br>
                 <div id="loader"></div>
                 <ol id="list1" title={this.state.playlistName1} onClick={this.hideNonUnique.bind(this)}>
