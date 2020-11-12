@@ -52,7 +52,7 @@ export default class Compare extends Component {
             songs2 : array2
         })
     }
-
+    //Starts the comparison 
     handleButtonClick = () => {
         const req = new URL("https://uniquify.herokuapp.com/compare/");
         document.getElementById('loader').style.display = 'block';
@@ -111,12 +111,11 @@ export default class Compare extends Component {
         return (
             <div className={CompareStyles.wrapper} id={CompareStyles.wrapper} >
                 <h3>Welcome to Uniquify!</h3><br></br> 
-                <p>To get started simply put two Spotify playlists IDs which can be located under "share" then click "Copy Spotify URI"</p>
-                <p>Keep in mind both playlist that you want to compare have to be PUBLIC!</p>
+                <p>To get started simply put two <i>public</i> Spotify playlists links which can be located under "share"</p>
+                <p>Once the two playlists are loaded click on any item to sort by unique songs</p>
                 <input type="text" id='playList1' onChange={event => this.changeInput1(event)}></input>
                 <input type="text" id='playList2' onChange={event => this.changeInput2(event)}></input><br></br>
-                {/* <input type="text" id='playList1' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list1: pID})}else{this.setState({list1: event.target.value})}}}></input>
-                <input type="text" id='playList2' onChange={event => {if(event.target.value.includes("spotify:playlist:")){var pID = event.target.value.replace("spotify:playlist:", ""); this.setState({list2: pID})}else{this.setState({list2: event.target.value})}}}></input><br></br> */}
+            
                 <button onClick={this.handleButtonClick}>Get list</button><br></br>
                 <div id="loader"></div>
                 <ol id="list1" title={this.state.playlistName1} onClick={this.hideNonUnique.bind(this)}>
