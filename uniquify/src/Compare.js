@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import CompareStyles from "./Compare.module.css";
 import Song from "./Song";
-import axios from "axios";
 
 export default class Compare extends Component {
     constructor() {
         super();
         this.state = {
-            list1: "3wgGItoJDDLMDUBCdYBQ2d",
-            list2: "2uwblsTCKkwr4fyTMh2qeI",
+            // list1: "3wgGItoJDDLMDUBCdYBQ2d",
+            list1: "37i9dQZF1DWXT8uSSn6PRy",
+            list2: "37i9dQZF1DXcBWIGoYBM5M",
+            // list2: "2uwblsTCKkwr4fyTMh2qeI",
             songs1: [],
             songs2: [],
-            showRepeated: true,
+            // showRepeated: true,
+            showRepeated: "all",
             playlistName1: "",
             playlistName2: ""
         }
@@ -73,8 +75,21 @@ export default class Compare extends Component {
     }
 
     hideNonUnique() {
-        this.setState({showRepeated: !this.state.showRepeated})
+        if(this.state.repeated === "all"){
+            this.setState({
+                repeated: "unique"
+            })
+        }else if (this.state.repeated === "unique"){
+            this.setState({
+                repeated: "repeated"
+            })
+        } else {
+            this.setState({
+                repeated: "all"
+            })
+        }
     }
+    
     changeInput1(event) {
         //Change playlist ID URI
         if(event.target.value.includes("spotify:playlist:")){
@@ -103,28 +118,37 @@ export default class Compare extends Component {
             this.setState({list2: event.target.value});
         }
     }
-    //https://open.spotify.com/playlist/3wgGItoJDDLMDUBCdYBQ2d?si=Bw0DiT0bQR6EZEF96GEO6w
-    //https://open.spotify.com/playlist/2uwblsTCKkwr4fyTMh2qeI?si=zKs-_abBQDuDXb8X2jXzyQ
-
+    filterSongs(songs){
+        if(this.state.repeated === "all"){
+            return songs.filter(song => !song.repeated)
+        }else if (this.state.repeated === "unique"){
+            return songs.filter(song => song.repeated)
+        } else {
+            return songs
+        }
+    }
     
     render() {
         return (
             <div className={CompareStyles.wrapper} id={CompareStyles.wrapper} >
                 <h3>Welcome to Uniquify!</h3><br></br> 
                 <p>To get started simply put two <i>public</i> Spotify playlists links which can be located under "share"</p>
-                <p>Once the two playlists are loaded click on any item to sort by unique songs</p>
+                <p>Once playlists are loaded, clicking on either playlist the will cycle from: all songs, <b>Unique songs</b> and repeated songs</p>
+                <p>PS. You can click Get list without inserting any playlists to compare two sample playlists!</p>
                 <input type="text" id='playList1' onChange={event => this.changeInput1(event)}></input>
                 <input type="text" id='playList2' onChange={event => this.changeInput2(event)}></input><br></br>
             
                 <button onClick={this.handleButtonClick}>Get list</button><br></br>
                 <div id="loader"></div>
                 <ol id="list1" title={this.state.playlistName1} onClick={this.hideNonUnique.bind(this)}>
-                    {this.state.songs1.filter(song => this.state.showRepeated || !song["repeated"]).map(song => <Song name={song["name"]} repeated={song["repeated"]} key={song["name"]+Math.random()}/>)}
+                    {this.filterSongs(this.state.songs1).map(song => <Song name={song["name"]} repeated={song["repeated"]} key={song["name"]+Math.random()}/>)}
                 </ol>
                 <ol id="list2" title={this.state.playlistName2} onClick={this.hideNonUnique.bind(this)}>
-                    {this.state.songs2.filter(song => this.state.showRepeated || !song["repeated"]).map(song => <Song name={song["name"]} repeated={song["repeated"]} key={song["name"]+Math.random()+1.1}/>)}
+                    {this.filterSongs(this.state.songs2).map(song => <Song name={song["name"]} repeated={song["repeated"]} key={song["name"]+Math.random()+1.1}/>)}
                 </ol>
             </div>
         )
     }
 }
+
+

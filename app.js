@@ -91,14 +91,15 @@ const getPlaylistName = async (playlistID) => {
     return playlistName;
 }
 
+console.log(path.join(__dirname, 'uniquify/build', 'index.html'))
 
 app.get("/", (req,res)=> {
     res.sendFile(path.join(__dirname, 'uniquify/build', 'index.html'));
 })
 
 app.get("/compare", async (req, res) => {
-    // console.log(req.query.song1);
-    // console.log(req.query.song2);
+    // console.log(req.query.song1);+
+    // console.log(req.query.song2);+
 
     if(Date.now()/1000 > token.expire) await getNewToken();
 
