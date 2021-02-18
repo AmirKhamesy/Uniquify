@@ -76,7 +76,7 @@ const getSongs = async (playlistID) => {
         }
     }
 
-    return songs.map(song => `${song.track.name} ${<br></br>} ${song.track.album.artists[0]["name"]}`); 
+    return songs.map(song => `${song.track.name} ${<br></br>} ${song.track.album.artists[0]['name']}`); 
 }
 
 const getPlaylistName = async (playlistID) => {
