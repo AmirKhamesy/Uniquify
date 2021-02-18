@@ -8,7 +8,7 @@ export default class Song extends Component {
 
     render() {
         return (
-            <li id={this.props.name} style={{ fontWeight: this.props.repeated ? 500 : 800, margin: "1%" }}>{this.props.name}</li>
+            <li id={this.props.name} style={{ fontWeight: this.props.repeated ? 500 : 800, margin: "1%" }}>{this.props.name.split('\n\n')[0]}<br></br><text className="artist">{this.props.name.split('\n\n')[1]}</text></li>
         )
     }
 }
