@@ -75,8 +75,9 @@ const getSongs = async (playlistID) => {
             return {error: "failed to get all songs from playlist"}
         }
     }
+    console.log(songs)
 
-    return songs.map(song => song.track.name + " by " + song.track.album.artists[0]["name"]);
+    return songs.map(song => song.track.name + ` hi ` + song.track.album.artists[0]["name"]);
 }
 
 const getPlaylistName = async (playlistID) => {

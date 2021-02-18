@@ -1,5 +1,5 @@
 body{
-    background-color: grey;
+    background-color:#1a1a1a;
 }
 
 
@@ -20,13 +20,24 @@ div{
     margin: 2%;
     text-align: left;
     vertical-align: top;
-    box-shadow:20px 20px 50px 15px black;  
+    list-style-type: none;
+    /* box-shadow:20px 20px 50px 15px black;   */
   }
   
   ol li{
-    background: white;
-    padding: 5px;
+    background: #282828;
+    padding: 1rem;
     border-radius: 10px;
+    color: white;
+  }
+  ol[title]{
+    color: white;
+  }
+
+  li:hover {
+    background: #198d42 ;
+    cursor: pointer;
+    list-style-type: decimal;
   }
 
   ol[title]::before {
