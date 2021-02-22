@@ -5,12 +5,23 @@ import Home from './Pages/Home';
 import LandingPage from './Pages/LandingPage';
 import * as serviceWorker from './serviceWorker';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 ReactDOM.render(
 
   <React.StrictMode>
     <Router>
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">home</Link>
+        </li>
+        <li>
+          <Link to="/compare">Compare</Link>
+        </li>
+      </ul>
+    </nav>
         <Route path='/' exact component={LandingPage}></Route>
         <Route path='/compare' exact component={Home}></Route>
     </Router>
