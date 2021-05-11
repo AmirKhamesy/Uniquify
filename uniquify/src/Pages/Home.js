@@ -6,7 +6,7 @@ import Compare from "../Components/Compare";
 function Home() {
   return (
     <div className="App">
-      <Compare/>
+      <Compare />
     </div>
   );
 }

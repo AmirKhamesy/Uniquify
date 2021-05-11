@@ -5,7 +5,7 @@ import "../CSS/landingPage.module.css"
 function LandingPage() {
     return (
         <div className='hi'>
-            <p style={{color:'white'}}>  landing page</p>
+            <p style={{ color: 'white' }}>  landing page</p>
         </div>
     );
 }

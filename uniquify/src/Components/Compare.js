@@ -4,6 +4,7 @@ import Song from "./Song";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+
 export default class Compare extends Component {
     constructor() {
         super();
@@ -137,10 +138,12 @@ export default class Compare extends Component {
     render() {
         return (
             <div className={CompareStyles.wrapper} id={CompareStyles.wrapper} >
+
+                {/* 
                 <h3>Welcome to Uniquify!</h3><br></br>
                 <p>To get started simply put two <i>public</i> Spotify playlists links which can be located under "share"</p>
                 <p>Once playlists are loaded, clicking on either playlist the will cycle from: all songs, <b>Unique songs</b> and repeated songs</p>
-                <p>PS. You can click Get list without inserting any playlists to compare two sample playlists!</p>
+                <p>PS. You can click Get list without inserting any playlists to compare two sample playlists!</p> */}
                 <input type="text" id='playList1' onChange={event => this.changeInput1(event)}></input>
                 <input type="text" id='playList2' onChange={event => this.changeInput2(event)}></input><br></br>
 

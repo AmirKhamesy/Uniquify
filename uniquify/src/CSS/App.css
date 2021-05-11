@@ -37,7 +37,7 @@
   }
 } */
 
-  /* #198d42 */
+/* #198d42 */
 
 #loader {
   margin: 20px auto 10px auto;
@@ -53,13 +53,21 @@
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 h3 {
@@ -67,18 +75,49 @@ h3 {
   margin: auto;
 }
 
-@media (min-width:768px){
-  #list1, #list2{
+@media (min-width: 768px) {
+  #list1,
+  #list2 {
     padding-inline-start: 1.8em;
     padding-inline-end: 1em;
-
   }
 }
 
-@media  (max-width:600px){
-  #list1, #list2{
+@media (max-width: 600px) {
+  #list1,
+  #list2 {
     padding-inline-start: 1.8em;
     padding-inline-end: 0.2em;
     width: 16em;
+  }
+}
+
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid white; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 1s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
   }
 }
