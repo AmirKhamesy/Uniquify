@@ -14,8 +14,8 @@ AOS.init()
 ReactDOM.render(
 
   <React.StrictMode>
+    <Header />
     <Router>
-      <Header />
       <Route path='/' exact component={LandingPage}></Route>
       <Route path='/compare' exact component={Home}></Route>
     </Router>
