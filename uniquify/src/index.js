@@ -11,22 +11,23 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { StyleSheetManager } from 'styled-components';
 
-const styles = {
-  link: {
-    textDecoration: 'none',
-    color: 'white',
-  },
+// const styles = {
+//   link: {
+//     textDecoration: 'none',
+//     color: 'white',
+//   },
 
-}
+// }
 AOS.init()
 ReactDOM.render(
 
   <React.StrictMode>
-    <Router>
+    <Home />
+    {/* <Router>
       <Box direction="row" justify='between' margin={{ right: 'auto' }}>
         <Box direction='column'>
           <Link to="/" style={styles.link}>
-            <Box data-aos="fade-down" direction='row-responsive' className="typewriter">
+            <Box direction='row-responsive' className="typewriter">
               <h1>Uniquify</h1>
             </Box>
           </Link>
@@ -46,7 +47,7 @@ ReactDOM.render(
       </Box>
       <Route path='/' exact component={LandingPage}></Route>
       <Route path='/compare' exact component={Home}></Route>
-    </Router>
+    </Router> */}
   </React.StrictMode >,
   document.getElementById('root')
 );
