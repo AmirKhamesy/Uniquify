@@ -48,7 +48,7 @@ div{
     text-align: center;
 }
 
-text{
+li>p{
   font-size: small;
   font-weight: normal;
   color: #7f8380;
