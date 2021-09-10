@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CompareStyles from "../CSS/Compare.module.css";
+import styled from "styled-components";
 import Song from "./Song";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -18,7 +19,8 @@ export default function Compare() {
     //     playlistName1: "",
     //     playlistName2: "",
     // })
-    const [list1, setList1] = useState("3wgGItoJDDLMDUBCdYBQ2d")
+    const [showCompare, setShowCompare] = useState(0);
+    const [list1, setList1] = useState("37i9dQZF1DWXT8uSSn6PRy")
     const [list2, setList2] = useState("37i9dQZF1DXcBWIGoYBM5M")
     const [songs1, setSongs1] = useState([])
     const [songs2, setSongs2] = useState([])
@@ -154,33 +156,63 @@ export default function Compare() {
         }
     }
 
+    const ShowFilterCurrentMode = () => {
+        let currFilter = showRepeated === "unique" ? "repeated" : showRepeated === "repeated" ? "unique" : 'all';
+        return (
+            <p onClick={hideNonUnique} style={styles.filterModeTitle}>
+                Showing {currFilter} songs
+            </p>
+        )
+    }
+
+    const StyledHomePage = styled.div`
+    background-color: #166d3b;
+background-image: linear-gradient(147deg, #166d3b 0%, #000000 74%);
+width: 100vw;
+    `
+
     return (
-        <div className={CompareStyles.wrapper} id={CompareStyles.wrapper} >
+        <div>
+            {showCompare ?
+                <StyledHomePage>
+                    hello
+                </StyledHomePage>
+                :
+                <div>
+                    <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
+                    <input type="text" id='playList2' onChange={event => changeInput2(event)}></input><br></br>
 
-            {/* 
-                <h3>Welcome to Uniquify!</h3><br></br>
-                <p>To get started simply put two <i>public</i> Spotify playlists links which can be located under "share"</p>
-                <p>Once playlists are loaded, clicking on either playlist the will cycle from: all songs, <b>Unique songs</b> and repeated songs</p>
-                <p>PS. You can click Get list without inserting any playlists to compare two sample playlists!</p> */}
-            <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
-            <input type="text" id='playList2' onChange={event => changeInput2(event)}></input><br></br>
-
-            <button onClick={handleButtonClick}>Get list</button><br></br>
-            <div id="loader"></div>
-            <ol title={playlistName1} onClick={hideNonUnique}>
-                {songs1 && songs1.length > 0 &&
-                    filterSongs(songs1).map((song, idx) => <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} /></div>)}
-            </ol>
-            <ol title={playlistName2} onClick={hideNonUnique}>
-                {songs2 && songs2.length > 0 &&
-                    filterSongs(songs2).map((song, idx) =>
-                        <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
-                            <Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} />
-                        </div>
-                    )}
-            </ol>
+                    <button onClick={handleButtonClick}>Get list</button><br></br>
+                    <div id="loader"></div>
+                    {songs1.length > 0 && songs2.length > 0 &&
+                        <ShowFilterCurrentMode />
+                    }
+                    <ol title={playlistName1} onClick={hideNonUnique}>
+                        {songs1 && songs1.length > 0 &&
+                            filterSongs(songs1).map((song, idx) =>
+                                <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} />
+                                </div>
+                            )
+                        }
+                    </ol>
+                    <ol title={playlistName2} onClick={hideNonUnique}>
+                        {songs2 && songs2.length > 0 &&
+                            filterSongs(songs2).map((song, idx) =>
+                                <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
+                                    <Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} />
+                                </div>
+                            )
+                        }
+                    </ol>
+                </div>
+            }
         </div>
     )
 }
 
 
+const styles = {
+    filterModeTitle: {
+        color: "white"
+    }
+}
