@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Song from "./Song";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
+import { LandingPage } from '../Components/LandingPage';
 
 export default function Compare() {
 
@@ -131,45 +131,14 @@ export default function Compare() {
         )
     }
 
-    const StyledHomePage = styled.div`
-    background-color: white;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-`
-    const SytledImage = styled.img`
-    max-width: 70%;
-    border: 2px solid red;
-    `
 
-    const StyledButton = styled.button`
-    transition: all .25s; 
-    border: 2px solid black;
-    padding: 1rem;
-    border-radius: 1.125rem;
-    &:hover{
-     padding: 1rem 2rem;
-    }
-    `
-    const StyledHeaderText = styled.h1`
-    margin: 1.5rem;
-    font-size: 4vw;
-    color: #a0d195;
-    @media (max-width: 768px) {
-        font-size: 6vw;
-  }
-    `
 
     return (
         <div>
 
             {
                 showCompare ?
-                    <StyledHomePage>
-                        <StyledHeaderText>Uniquify</StyledHeaderText>
-                        <SytledImage src={require('../../src/Assets/LandingPagePic.png')} />
-                        <StyledButton>Start Comparing</StyledButton>
-                    </StyledHomePage>
+                    <LandingPage />
                     :
                     <div>
                         <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
