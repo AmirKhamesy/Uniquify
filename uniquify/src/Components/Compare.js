@@ -7,19 +7,8 @@ import 'aos/dist/aos.css';
 
 
 export default function Compare() {
-    // const [state, setState] = useState({
-    //     // list1: "3wgGItoJDDLMDUBCdYBQ2d",
-    //     list1: "37i9dQZF1DWXT8uSSn6PRy",
-    //     list2: "37i9dQZF1DXcBWIGoYBM5M",
-    //     // list2: "2uwblsTCKkwr4fyTMh2qeI",
-    //     songs1: [],
-    //     songs2: [],
-    //     // showRepeated: true,
-    //     showRepeated: "all",
-    //     playlistName1: "",
-    //     playlistName2: "",
-    // })
-    const [showCompare, setShowCompare] = useState(0);
+
+    const [showCompare, setShowCompare] = useState(true)
     const [list1, setList1] = useState("37i9dQZF1DWXT8uSSn6PRy")
     const [list2, setList2] = useState("37i9dQZF1DXcBWIGoYBM5M")
     const [songs1, setSongs1] = useState([])
@@ -33,10 +22,7 @@ export default function Compare() {
 
     const addPlaylistName = (p1, p2) => {
         if (p1, p2) {
-            // setState({
-            //     playlistName1: p1,
-            //     playlistName2: p2
-            // });
+
             setPlaylistName1(p1)
             setPlaylistName2(p2)
         }
@@ -63,10 +49,7 @@ export default function Compare() {
                 repeated: dup
             }
         })
-        // setState(({
-        //     songs1: array1,
-        //     songs2: array2
-        // }));
+
         setSongs1(array1)
         setSongs2(array2)
     }
@@ -92,22 +75,11 @@ export default function Compare() {
     }
 
     const hideNonUnique = () => {
-        // if (state.repeated === "all") {
         if (showRepeated === "all") {
-            // setState({
-            //     repeated: "unique"
-            // })
             setShowRepeated("unique")
-            // } else if (state.repeated === "unique") {
         } else if (showRepeated === "unique") {
-            // setState({
-            //     repeated: "repeated"
-            // })
             setShowRepeated("repeated")
         } else {
-            // setState({
-            //     repeated: "all"
-            // })
             setShowRepeated("all")
         }
     }
@@ -116,16 +88,13 @@ export default function Compare() {
         //Change playlist ID URI
         if (event.target.value.includes("spotify:playlist:")) {
             var pID = event.target.value.replace("spotify:playlist:", "");
-            // setState({ list1: pID });
             setList1(pID)
             //Chance playlist ID link
         } else if (event.target.value.includes("https://open.spotify.com/playlist/")) {
             var pID = event.target.value.substr(34, 22);
-            // setState({ list1: pID });
             setList1(pID)
             //Assume its raw playlist ID
         } else {
-            // setState({ list1: event.target.value });
             setList1(event.target.value)
         }
     }
@@ -133,16 +102,13 @@ export default function Compare() {
         //Change playlist ID URI
         if (event.target.value.includes("spotify:playlist:")) {
             var pID = event.target.value.replace("spotify:playlist:", "");
-            // setState({ list2: pID });
             setList2(pID)
             //Chance playlist ID link
         } else if (event.target.value.includes("https://open.spotify.com/playlist/")) {
             var pID = event.target.value.substr(34, 22);
-            // setState({ list2: pID });
             setList2(pID)
             //Assume its raw playlist ID
         } else {
-            // setState({ list2: event.target.value });
             setList2(event.target.value)
         }
     }
@@ -166,45 +132,72 @@ export default function Compare() {
     }
 
     const StyledHomePage = styled.div`
-    background-color: #166d3b;
-background-image: linear-gradient(147deg, #166d3b 0%, #000000 74%);
-width: 100vw;
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+`
+    const SytledImage = styled.img`
+    max-width: 70%;
+    border: 2px solid red;
+    `
+
+    const StyledButton = styled.button`
+    transition: all .25s; 
+    border: 2px solid black;
+    padding: 1rem;
+    border-radius: 1.125rem;
+    &:hover{
+     padding: 1rem 2rem;
+    }
+    `
+    const StyledHeaderText = styled.h1`
+    margin: 1.5rem;
+    font-size: 4vw;
+    color: #a0d195;
+    @media (max-width: 768px) {
+        font-size: 6vw;
+  }
     `
 
     return (
         <div>
-            {showCompare ?
-                <StyledHomePage>
-                    hello
-                </StyledHomePage>
-                :
-                <div>
-                    <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
-                    <input type="text" id='playList2' onChange={event => changeInput2(event)}></input><br></br>
 
-                    <button onClick={handleButtonClick}>Get list</button><br></br>
-                    <div id="loader"></div>
-                    {songs1.length > 0 && songs2.length > 0 &&
-                        <ShowFilterCurrentMode />
-                    }
-                    <ol title={playlistName1} onClick={hideNonUnique}>
-                        {songs1 && songs1.length > 0 &&
-                            filterSongs(songs1).map((song, idx) =>
-                                <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} />
-                                </div>
-                            )
+            {
+                showCompare ?
+                    <StyledHomePage>
+                        <StyledHeaderText>Uniquify</StyledHeaderText>
+                        <SytledImage src={require('../../src/Assets/LandingPagePic.png')} />
+                        <StyledButton>Start Comparing</StyledButton>
+                    </StyledHomePage>
+                    :
+                    <div>
+                        <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
+                        <input type="text" id='playList2' onChange={event => changeInput2(event)}></input><br></br>
+
+                        <button onClick={handleButtonClick}>Get list</button><br></br>
+                        <div id="loader"></div>
+                        {songs1.length > 0 && songs2.length > 0 &&
+                            <ShowFilterCurrentMode />
                         }
-                    </ol>
-                    <ol title={playlistName2} onClick={hideNonUnique}>
-                        {songs2 && songs2.length > 0 &&
-                            filterSongs(songs2).map((song, idx) =>
-                                <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
-                                    <Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} />
-                                </div>
-                            )
-                        }
-                    </ol>
-                </div>
+                        <ol title={playlistName1} onClick={hideNonUnique}>
+                            {songs1 && songs1.length > 0 &&
+                                filterSongs(songs1).map((song, idx) =>
+                                    <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} />
+                                    </div>
+                                )
+                            }
+                        </ol>
+                        <ol title={playlistName2} onClick={hideNonUnique}>
+                            {songs2 && songs2.length > 0 &&
+                                filterSongs(songs2).map((song, idx) =>
+                                    <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
+                                        <Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} />
+                                    </div>
+                                )
+                            }
+                        </ol>
+                    </div>
             }
         </div>
     )
