@@ -1,41 +1,34 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import CompareStyles from "../CSS/Compare.module.css";
+import styled from "styled-components";
 import Song from "./Song";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { LandingPage } from '../Components/LandingPage';
 
+export default function Compare() {
 
-export default class Compare extends Component {
-    constructor() {
-        super();
-        this.state = {
-            // list1: "3wgGItoJDDLMDUBCdYBQ2d",
-            list1: "37i9dQZF1DWXT8uSSn6PRy",
-            list2: "37i9dQZF1DXcBWIGoYBM5M",
-            // list2: "2uwblsTCKkwr4fyTMh2qeI",
-            songs1: [],
-            songs2: [],
-            // showRepeated: true,
-            showRepeated: "all",
-            playlistName1: "",
-            playlistName2: ""
-        }
-    }
-
-    componentDidMount() {
+    const [showCompare, setShowCompare] = useState(true)
+    const [list1, setList1] = useState("37i9dQZF1DWXT8uSSn6PRy")
+    const [list2, setList2] = useState("37i9dQZF1DXcBWIGoYBM5M")
+    const [songs1, setSongs1] = useState([])
+    const [songs2, setSongs2] = useState([])
+    const [showRepeated, setShowRepeated] = useState("all")
+    const [playlistName1, setPlaylistName1] = useState("")
+    const [playlistName2, setPlaylistName2] = useState("")
+    useEffect(() => {
         AOS.init()
-    }
+    }, [])
 
-    addPlaylistName(p1, p2) {
+    const addPlaylistName = (p1, p2) => {
         if (p1, p2) {
-            this.setState({
-                playlistName1: p1,
-                playlistName2: p2
-            });
+
+            setPlaylistName1(p1)
+            setPlaylistName2(p2)
         }
     }
 
-    comparePlaylist(s1, s2) {
+    const comparePlaylist = (s1, s2) => {
         if (s1 === undefined || s2 === undefined) {
             alert("Invalid playlist ID, please try again!");
             return;
@@ -56,24 +49,24 @@ export default class Compare extends Component {
                 repeated: dup
             }
         })
-        this.setState({
-            songs1: array1,
-            songs2: array2
-        })
+
+        setSongs1(array1)
+        setSongs2(array2)
     }
     //Starts the comparison 
-    handleButtonClick = () => {
+    const handleButtonClick = () => {
         const req = new URL("https://uniquify.herokuapp.com/compare/");
         document.getElementById('loader').style.display = 'block';
-        req.searchParams.append("song1", this.state.list1);
-        req.searchParams.append("song2", this.state.list2);
+        req.searchParams.append("song1", list1);
+        req.searchParams.append("song2", list2);
         try {
             fetch(req)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);
-                    this.comparePlaylist(res.songs1, res.songs2);
-                    this.addPlaylistName(res.playlistName1, res.playlistName2);
+
+                    comparePlaylist(res.songs1, res.songs2);
+                    addPlaylistName(res.playlistName1, res.playlistName2);
                     document.getElementById('loader').style.display = 'none';
                 })
         } catch {
@@ -81,83 +74,107 @@ export default class Compare extends Component {
         }
     }
 
-    hideNonUnique() {
-        if (this.state.repeated === "all") {
-            this.setState({
-                repeated: "unique"
-            })
-        } else if (this.state.repeated === "unique") {
-            this.setState({
-                repeated: "repeated"
-            })
+    const hideNonUnique = () => {
+        if (showRepeated === "all") {
+            setShowRepeated("unique")
+        } else if (showRepeated === "unique") {
+            setShowRepeated("repeated")
         } else {
-            this.setState({
-                repeated: "all"
-            })
+            setShowRepeated("all")
         }
     }
 
-    changeInput1(event) {
+    const changeInput1 = (event) => {
         //Change playlist ID URI
         if (event.target.value.includes("spotify:playlist:")) {
             var pID = event.target.value.replace("spotify:playlist:", "");
-            this.setState({ list1: pID });
+            setList1(pID)
             //Chance playlist ID link
         } else if (event.target.value.includes("https://open.spotify.com/playlist/")) {
             var pID = event.target.value.substr(34, 22);
-            this.setState({ list1: pID });
+            setList1(pID)
             //Assume its raw playlist ID
         } else {
-            this.setState({ list1: event.target.value });
+            setList1(event.target.value)
         }
     }
-    changeInput2(event) {
+    const changeInput2 = (event) => {
         //Change playlist ID URI
         if (event.target.value.includes("spotify:playlist:")) {
             var pID = event.target.value.replace("spotify:playlist:", "");
-            this.setState({ list2: pID });
+            setList2(pID)
             //Chance playlist ID link
         } else if (event.target.value.includes("https://open.spotify.com/playlist/")) {
             var pID = event.target.value.substr(34, 22);
-            this.setState({ list2: pID });
+            setList2(pID)
             //Assume its raw playlist ID
         } else {
-            this.setState({ list2: event.target.value });
+            setList2(event.target.value)
         }
     }
-    filterSongs(songs) {
-        if (this.state.repeated === "all") {
+    const filterSongs = (songs) => {
+        if (showRepeated === "all") {
             return songs.filter(song => !song.repeated)
-        } else if (this.state.repeated === "unique") {
+        } else if (showRepeated === "unique") {
             return songs.filter(song => song.repeated)
         } else {
             return songs
         }
     }
 
-    render() {
+    const ShowFilterCurrentMode = () => {
+        let currFilter = showRepeated === "unique" ? "repeated" : showRepeated === "repeated" ? "unique" : 'all';
         return (
-            <div className={CompareStyles.wrapper} id={CompareStyles.wrapper} >
-
-                {/* 
-                <h3>Welcome to Uniquify!</h3><br></br>
-                <p>To get started simply put two <i>public</i> Spotify playlists links which can be located under "share"</p>
-                <p>Once playlists are loaded, clicking on either playlist the will cycle from: all songs, <b>Unique songs</b> and repeated songs</p>
-                <p>PS. You can click Get list without inserting any playlists to compare two sample playlists!</p> */}
-                <input type="text" id='playList1' onChange={event => this.changeInput1(event)}></input>
-                <input type="text" id='playList2' onChange={event => this.changeInput2(event)}></input><br></br>
-
-                <button onClick={this.handleButtonClick}>Get list</button><br></br>
-                <div id="loader"></div>
-                <ol title={this.state.playlistName1} onClick={this.hideNonUnique.bind(this)}>
-                    {this.filterSongs(this.state.songs1).map(song => <div data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} /></div>)}
-                </ol>
-                <ol title={this.state.playlistName2} onClick={this.hideNonUnique.bind(this)}>
-                    {this.filterSongs(this.state.songs2).map(song => <div data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} /></div>)}
-                </ol>
-            </div>
+            <p onClick={hideNonUnique} style={styles.filterModeTitle}>
+                Showing {currFilter} songs
+            </p>
         )
     }
+
+
+
+    return (
+        <div>
+
+            {
+                showCompare ?
+                    <LandingPage show={setShowCompare} />
+                    :
+                    <div>
+                        <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
+                        <input type="text" id='playList2' onChange={event => changeInput2(event)}></input><br></br>
+
+                        <button onClick={handleButtonClick}>Get list</button><br></br>
+                        <div id="loader"></div>
+                        {songs1.length > 0 && songs2.length > 0 &&
+                            <ShowFilterCurrentMode />
+                        }
+                        <ol title={playlistName1} onClick={hideNonUnique}>
+                            {songs1 && songs1.length > 0 &&
+                                filterSongs(songs1).map((song, idx) =>
+                                    <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} />
+                                    </div>
+                                )
+                            }
+                        </ol>
+                        <ol title={playlistName2} onClick={hideNonUnique}>
+                            {songs2 && songs2.length > 0 &&
+                                filterSongs(songs2).map((song, idx) =>
+                                    <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
+                                        <Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} />
+                                    </div>
+                                )
+                            }
+                        </ol>
+                    </div>
+            }
+        </div>
+    )
 }
 
 
+const styles = {
+    filterModeTitle: {
+        color: "white"
+    }
+}

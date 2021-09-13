@@ -1,63 +1,56 @@
-body{
-    background-color:#1a1a1a;
+body {
+  background-color: #1a1a1a;
 }
 
-
-div{
-    margin: 15px;
-  }
-  
-  input{
-    border-radius: 10px;
-    border: 10px;
-    margin:7px;
-  }
-  
-  ol{
-    width: 40%;
-    display: inline-block;
-    border-radius: 10px;
-    margin: 2%;
-    text-align: left;
-    vertical-align: top;
-    list-style-type: none;
-    /* box-shadow:20px 20px 50px 15px black;   */
-  }
-  
-  ol li{
-    background: #282828;
-    padding: 1rem;
-    border-radius: 10px;
-    color: white;
-  }
-  ol[title]{
-    color: white;
-  }
-
-  li:hover {
-    background: #198d42 ;
-    cursor: pointer;
-    list-style-type: decimal;
-  }
-
-  ol[title]::before {
-    content: attr(title);
-    /* then add some nice styling as needed, eg: */
-    display: block;
-    font-weight: bold;
-    text-align: center;
+input {
+  border-radius: 10px;
+  border: 10px;
+  margin: 7px;
 }
 
-text{
+ol {
+  width: 40%;
+  display: inline-block;
+  border-radius: 10px;
+  margin: 2%;
+  text-align: left;
+  vertical-align: top;
+  list-style-type: none;
+  /* box-shadow:20px 20px 50px 15px black;   */
+}
+
+ol li {
+  background: #282828;
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+}
+ol[title] {
+  color: white;
+}
+
+li:hover {
+  background: #198d42;
+  cursor: pointer;
+  list-style-type: decimal;
+}
+
+ol[title]::before {
+  content: attr(title);
+  /* then add some nice styling as needed, eg: */
+  display: block;
+  font-weight: bold;
+  text-align: center;
+}
+
+li > p {
   font-size: small;
   font-weight: normal;
   color: #7f8380;
 }
 
-li:hover > text{
+li:hover > text {
   font-size: small;
   font-weight: normal;
   color: black;
 }
-  
-  
