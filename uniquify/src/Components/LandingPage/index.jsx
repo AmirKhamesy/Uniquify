@@ -9,7 +9,6 @@ position: absolute;
 `
 const SytledImage = styled.img`
 max-width: 60%;
-border: 2px solid red;
 `
 
 const StyledButton = styled.button`
@@ -56,46 +55,55 @@ margin: 1rem 0;
 color: #a0d195;
 /* color: #1a1a1a; */
 font-weight: 600;
-font-size: 4.5vmin;
+font-size: 5vmin;
 @media (max-width: 768px) {
     margin: 1rem;
-    font-size: 5vmin;
 }
 `
 const StyledDetailText = styled.p`
 margin: 1rem 0;
 color: #1a1a1a;
 font-weight: 300;
-font-size: 1.5vmax;
+font-size: 1.75vmax;
 @media (max-width: 768px) {
     margin: 1rem;
-    font-size: 1.33vmax;
 }
 `
 
 const StyledImageTextContainer = styled.div`
 border: 2px solid red;
 display: flex;
+flex-direction: row;
 justify-content: space-evenly;
+margin: 5vmax;
+@media (max-width: 768px) {
+    flex-direction: column-reverse;
+}
 `
 const TextComboContainer = styled.div`
-border: 2px solid red;
-
-`
-const TextComboHeader = styled.h2`
-
+display: flex;
+flex-direction: column;
+text-align: center;
+justify-content: center;
+background-color: #f7f7f8;
+border-radius: 5vw;
+padding: 0 10vw;
 `
 const TextComboDetails = styled.p`
-
+color: #1a1a1a;
+font-weight: 300;
+font-size: 2vmax;
+@media (max-width: 768px) {
+    width: 100%;
+}
 `
-
 
 export const LandingPage = () => {
     return (
         <StyledHomePage>
             <StyledHeaderText>Uniquify</StyledHeaderText>
-            <DetailsContainer>
 
+            <DetailsContainer>
                 <StyledDetailh2>
                     <Typewriter
                         onInit={(typewriter) => {
@@ -106,7 +114,7 @@ export const LandingPage = () => {
                                 .typeString('Find Unique songs...')
                                 .pauseFor(500)
                                 .deleteAll()
-                                .typeString('Find the Perfect playlist.')
+                                .typeString("Find You're Perfect playlist.")
                                 .start();
                         }}
                     />
@@ -116,20 +124,23 @@ export const LandingPage = () => {
                     <StyledButton>Start Comparing</StyledButton>
                 </div>
             </DetailsContainer>
+
             <StyledImageTextContainer>
                 <TextComboContainer>
-                    <TextComboHeader>Help your friends</TextComboHeader>
-                    <TextComboDetails>Share your public spotify playlist using Uniquify </TextComboDetails>
+                    <StyledDetailh2>Contribute</StyledDetailh2>
+                    <TextComboDetails>Share your public Spotify playlist.</TextComboDetails>
                 </TextComboContainer>
                 <SytledImage src={require('../../Assets/LandingPagePic.png')} />
             </StyledImageTextContainer>
+
             <StyledImageTextContainer>
+                <SytledImage src={require('../../Assets/LandingPagePic3.png')} />
                 <TextComboContainer>
-                    <TextComboHeader>Help your friends</TextComboHeader>
-                    <TextComboDetails>Share your public spotify playlist using Uniquify </TextComboDetails>
+                    <StyledDetailh2>Analyze</StyledDetailh2>
+                    <TextComboDetails>Compare your playlist with others.</TextComboDetails>
                 </TextComboContainer>
-                <SytledImage src={require('../../Assets/LandingPagePic.png')} />
             </StyledImageTextContainer>
+
         </StyledHomePage>
     )
 }
