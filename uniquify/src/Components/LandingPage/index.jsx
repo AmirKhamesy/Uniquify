@@ -9,6 +9,10 @@ position: absolute;
 `
 const SytledImage = styled.img`
 max-width: 60%;
+@media (max-width: 768px) {
+    max-width: 100%;
+margin: auto;
+}
 `
 
 const StyledButton = styled.button`
@@ -20,6 +24,7 @@ border-style: none;
 border-radius: 1.125rem;
 box-shadow: 0 0.5rem 0.5rem rgb(0 0 0 / 40%);
 width: 10rem; */
+cursor: pointer;
     border-radius: 20px;
     width: 15vmax;
     height: 4vmax;
@@ -68,12 +73,12 @@ font-size: 1.75vmax;
 @media (max-width: 768px) {
     margin: 1rem;
 }
+
 `
 
 const StyledImageTextContainer = styled.div`
-border: 2px solid red;
 display: flex;
-flex-direction: row;
+flex-direction: ${props => props.flipped ? "row" : "row-reverse"};
 justify-content: space-evenly;
 margin: 5vmax;
 @media (max-width: 768px) {
@@ -88,17 +93,24 @@ justify-content: center;
 background-color: #f7f7f8;
 border-radius: 5vw;
 padding: 0 10vw;
+
 `
 const TextComboDetails = styled.p`
 color: #1a1a1a;
 font-weight: 300;
 font-size: 2vmax;
-@media (max-width: 768px) {
-    width: 100%;
-}
+`
+const AuthorCreds = styled.a`
+color: #1a1a1a;
+font-weight: 300;
+font-size: 1vmax;
+text-decoration: underline;
+display: flex;
+justify-content: center;
+padding: 0 0 1rem 0;
 `
 
-export const LandingPage = () => {
+export const LandingPage = ({ show }) => {
     return (
         <StyledHomePage>
             <StyledHeaderText>Uniquify</StyledHeaderText>
@@ -121,26 +133,26 @@ export const LandingPage = () => {
                 </StyledDetailh2>
                 <StyledDetailText>Comparing has never been easier.</StyledDetailText>
                 <div>
-                    <StyledButton>Start Comparing</StyledButton>
+                    <StyledButton onClick={() => show(false)}>Start Comparing</StyledButton>
                 </div>
             </DetailsContainer>
 
-            <StyledImageTextContainer>
-                <TextComboContainer>
+            <StyledImageTextContainer >
+                <TextComboContainer >
                     <StyledDetailh2>Contribute</StyledDetailh2>
                     <TextComboDetails>Share your public Spotify playlist.</TextComboDetails>
                 </TextComboContainer>
                 <SytledImage src={require('../../Assets/LandingPagePic.png')} />
             </StyledImageTextContainer>
 
-            <StyledImageTextContainer>
-                <SytledImage src={require('../../Assets/LandingPagePic3.png')} />
-                <TextComboContainer>
+            <StyledImageTextContainer flipped>
+                <TextComboContainer >
                     <StyledDetailh2>Analyze</StyledDetailh2>
                     <TextComboDetails>Compare your playlist with others.</TextComboDetails>
                 </TextComboContainer>
+                <SytledImage src={require('../../Assets/LandingPagePic3.png')} />
             </StyledImageTextContainer>
-
+            <AuthorCreds>Created By Amir Khamesy</AuthorCreds>
         </StyledHomePage>
     )
 }

@@ -138,7 +138,7 @@ export default function Compare() {
 
             {
                 showCompare ?
-                    <LandingPage />
+                    <LandingPage show={setShowCompare} />
                     :
                     <div>
                         <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
