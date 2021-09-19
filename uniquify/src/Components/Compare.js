@@ -5,7 +5,7 @@ import Song from "./Song";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { LandingPage } from '../Components/LandingPage';
-
+import { Header } from '../Components/Header'
 export default function Compare() {
 
     const [showCompare, setShowCompare] = useState(true)
@@ -134,13 +134,13 @@ export default function Compare() {
 
 
     return (
-        <div>
-
+        <>
             {
                 showCompare ?
                     <LandingPage show={setShowCompare} />
                     :
-                    <div>
+                    <>
+                        <Header />
                         <input type="text" id='playList1' onChange={event => changeInput1(event)}></input>
                         <input type="text" id='playList2' onChange={event => changeInput2(event)}></input><br></br>
 
@@ -166,9 +166,9 @@ export default function Compare() {
                                 )
                             }
                         </ol>
-                    </div>
+                    </>
             }
-        </div>
+        </>
     )
 }
 
