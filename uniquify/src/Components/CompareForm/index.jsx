@@ -5,9 +5,78 @@ const media = {
     mobile: '@media (max-width: 768px)'
 }
 
+const StyledInput = styled.input`
+background-color: rgba(160,209,149, 0.4);
+width: 40vw;
+height: 5vh;
+outline: none;
+border: none;
+border-radius: 2vmin;
+padding: 0 1rem;
+${media.mobile} {
+    width: 91.5%;
+    height: 6vmax;
+}
+`
+const StyledInputContainer = styled.div`
+/* border: 2px solid black; */
+display: flex;
+justify-content: space-evenly;
+${media.mobile} {
+    flex-direction: column;
+    margin: 0  1rem;
+}
+`
+const StyledLabelComboContainer = styled.div`
+/* border: 2px solid blue; */
+display: flex;
+flex-flow: column;
+margin-bottom: 1rem;
+`
+const StyledLabel = styled.p`
+/* border: 2px solid red; */
+margin: 0;
+padding:0 0 0 2vw;
+color: #1a1a1a;
+font-weight: 300;
+font-size: 1.75vmax;
+${media.mobile} {
+    font-size: 3vmax;
+}
+`
+
+const StyledButton = styled.button`
+cursor: pointer;
+border-radius: 20px;
+width: 12vmax;
+height: 4vmax;
+background-color: #a0d195;
+color: #fff;
+border: none;   
+outline: none;
+font-size: 1.6vmax;
+transition: .3s;
+//center
+position: relative;
+margin-top: 3vmin;
+left: 50%;
+-ms-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+&:hover{
+    width: 15vmax;
+}
+${media.mobile} {
+    &:hover{
+        width: 95%;
+    }
+    width: 95%;
+    height: 6vmax;
+}
+`
 
 
 export const CompareForm = () => {
+
     const [list1, setList1] = useState("37i9dQZF1DWXT8uSSn6PRy")
     const [list2, setList2] = useState("37i9dQZF1DXcBWIGoYBM5M")
     const [songs1, setSongs1] = useState([])
@@ -128,32 +197,30 @@ export const CompareForm = () => {
         )
     }
 
-    const StyledInput = styled.input`
-    background-color: #a0d195;
-    width: 33vw;
-    height: 5vh;
-    
-    `
-    const StyledInputContainer = styled.div`
-    border: 2px solid red;
-    display: flex;
-    justify-content: space-evenly;
-    `
+
 
     return (
         <>
             <StyledInputContainer>
-
-                <StyledInput
-                    value={list1}
-                    onChange={event => changeInput1(event)}
-                />
-                <StyledInput
-                    value={list2}
-                    onChange={event => changeInput2(event)}
-                />
+                <StyledLabelComboContainer>
+                    <StyledLabel>Playlist 1</StyledLabel>
+                    <StyledInput
+                        value={list1}
+                        onChange={event => changeInput1(event)}
+                        html="test"
+                    />
+                </StyledLabelComboContainer>
+                <StyledLabelComboContainer>
+                    <StyledLabel>Playlist 2</StyledLabel>
+                    <StyledInput
+                        value={list2}
+                        onChange={event => changeInput2(event)}
+                    />
+                </StyledLabelComboContainer>
             </StyledInputContainer>
-            <button onClick={handleButtonClick}>Get list</button>
+            <StyledButton onClick={handleButtonClick}>Get list</StyledButton>
+
+
             <div id="loader"></div>
             {songs1.length > 0 && songs2.length > 0 &&
                 <ShowFilterCurrentMode />

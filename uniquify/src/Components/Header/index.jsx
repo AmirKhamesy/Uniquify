@@ -16,7 +16,7 @@ ${media.mobile} {
 export const Header = () => {
     return (
         <>
-            <StyledHeaderText>Uniquify</StyledHeaderText>
+            <StyledHeaderText onClick={() => console.log('herro')}>Uniquify</StyledHeaderText>
         </>
     )
 }

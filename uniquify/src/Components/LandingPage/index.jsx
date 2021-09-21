@@ -34,7 +34,7 @@ cursor: pointer;
     width: 15vmax;
     height: 4vmax;
     background-color: #a0d195;
-    box-shadow: 0 20px 20px rgb(0 0 0 / 40%);
+    /* box-shadow: 0 20px 20px rgb(0 0 0 / 40%); */
     color: #fff;
     border: none;   
     outline: none;

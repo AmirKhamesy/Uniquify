@@ -4,16 +4,13 @@ import 'aos/dist/aos.css';
 import { LandingPage } from '../Components/LandingPage';
 import { Header } from '../Components/Header'
 import { CompareForm } from '../Components/CompareForm'
-export default function Compare() {
+export const Compare = () => {
 
     const [showCompare, setShowCompare] = useState(false)
 
     useEffect(() => {
         AOS.init()
     }, [])
-
-
-
 
     return (
         <>
