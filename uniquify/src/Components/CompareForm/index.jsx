@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Song from "../Song";
 const media = {
     mobile: '@media (max-width: 768px)'
@@ -73,7 +73,30 @@ ${media.mobile} {
     height: 6vmax;
 }
 `
+const spin = keyframes`
+ 0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`
 
+const StyledLoader = styled.div`
+right:1rem;
+top:1rem;
+position: fixed;
+z-index: 1000;
+  display: block;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a0d195;
+  width:  8vmin;
+  height:  8vmin;
+  -webkit-animation: ${spin} 2s linear infinite; /* Safari */
+  animation: ${spin} 2s linear infinite;
+  background: rgba(255, 255, 255, 0.8) 50% 50% no-repeat;
+`
 
 export const CompareForm = () => {
 
@@ -84,6 +107,7 @@ export const CompareForm = () => {
     const [showRepeated, setShowRepeated] = useState("all")
     const [playlistName1, setPlaylistName1] = useState("")
     const [playlistName2, setPlaylistName2] = useState("")
+    const [loading, setLoading] = useState(true)
 
 
     const addPlaylistName = (p1, p2) => {
@@ -122,7 +146,8 @@ export const CompareForm = () => {
     //Starts the comparison 
     const handleButtonClick = () => {
         const req = new URL("https://uniquify.herokuapp.com/compare/");
-        document.getElementById('loader').style.display = 'block';
+        //show loading
+        setLoading(true)
         req.searchParams.append("song1", list1);
         req.searchParams.append("song2", list2);
         try {
@@ -133,7 +158,8 @@ export const CompareForm = () => {
 
                     comparePlaylist(res.songs1, res.songs2);
                     addPlaylistName(res.playlistName1, res.playlistName2);
-                    document.getElementById('loader').style.display = 'none';
+                    setLoading(false)
+                    //HIDE loading
                 })
         } catch {
             console.log("failed to fetch");
@@ -219,9 +245,11 @@ export const CompareForm = () => {
                 </StyledLabelComboContainer>
             </StyledInputContainer>
             <StyledButton onClick={handleButtonClick}>Get list</StyledButton>
+            {
+                loading &&
+                <StyledLoader />
 
-
-            <div id="loader"></div>
+            }
             {songs1.length > 0 && songs2.length > 0 &&
                 <ShowFilterCurrentMode />
             }
