@@ -83,20 +83,21 @@ const spin = keyframes`
 `
 
 const StyledLoader = styled.div`
-right:1rem;
-top:1rem;
-position: fixed;
+position: relative;
+    left: 45%;
 z-index: 1000;
-  display: block;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #a0d195;
-  width:  8vmin;
-  height:  8vmin;
-  -webkit-animation: ${spin} 2s linear infinite; /* Safari */
-  animation: ${spin} 2s linear infinite;
-  background: rgba(255, 255, 255, 0.8) 50% 50% no-repeat;
+display: block;
+border: 16px solid #f3f3f3;
+border-radius: 50%;
+border-top: 16px solid #a0d195;
+width:  8vmin;
+height:  8vmin;
+-webkit-animation: ${spin} 2s linear infinite; /* Safari */
+animation: ${spin} 2s linear infinite;
+background: rgba(255, 255, 255, 0.8) 50% 50% no-repeat;
 `
+
+
 
 export const CompareForm = () => {
 
@@ -107,7 +108,7 @@ export const CompareForm = () => {
     const [showRepeated, setShowRepeated] = useState("all")
     const [playlistName1, setPlaylistName1] = useState("")
     const [playlistName2, setPlaylistName2] = useState("")
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
 
     const addPlaylistName = (p1, p2) => {
@@ -244,12 +245,13 @@ export const CompareForm = () => {
                     />
                 </StyledLabelComboContainer>
             </StyledInputContainer>
-            <StyledButton onClick={handleButtonClick}>Get list</StyledButton>
             {
-                loading &&
-                <StyledLoader />
-
+                loading ?
+                    <StyledLoader />
+                    :
+                    <StyledButton onClick={handleButtonClick}>Get list</StyledButton>
             }
+
             {songs1.length > 0 && songs2.length > 0 &&
                 <ShowFilterCurrentMode />
             }
