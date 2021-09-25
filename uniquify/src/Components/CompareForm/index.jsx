@@ -101,15 +101,27 @@ animation: ${spin} 2s linear infinite;
 background: rgba(255, 255, 255, 0.8) 50% 50% no-repeat;
 `
 const StyledSongsContainer = styled.div`
-background-image: url(${props => props.showRepeated === "unique" ? repeated : props.showRepeated === "repeated" ? unique : all});
+background-image: url(${props => props.showRepeated === "unique" ? repeated : props.showRepeated === "repeated" ? all : unique});
 background-repeat: no-repeat;
-    background-size: contain;
-    background-attachment: fixed;
-    background-position: bottom 10px right 50%;
-    position: absolute;
-    width: 100vw;
+background-size: contain;
+background-attachment: fixed;
+background-position: bottom 10px right 50%;
+position: absolute;
+width: 100vw;
+display: flex;
+justify-content:space-around ;
+overflow-x: hidden;
+`
 
-   
+const StyledOL = styled.ol`
+list-style-type: none;
+li {
+  background: #dcdcdc;
+  padding: 1rem;
+  border-radius: 10px;
+  color: #1a1a1a;
+  padding:  1vmax;
+}
 `
 
 
@@ -228,18 +240,6 @@ export const CompareForm = () => {
             return songs
         }
     }
-
-    const ShowFilterCurrentMode = () => {
-        let currFilter = showRepeated === "unique" ? "repeated" : showRepeated === "repeated" ? "unique" : 'all';
-        return (
-            <p onClick={hideNonUnique}>
-                Showing {currFilter} songs
-            </p>
-        )
-    }
-
-
-
     return (
         <>
             <StyledInputContainer>
@@ -267,28 +267,28 @@ export const CompareForm = () => {
             }
 
             {songs1.length > 0 && songs2.length > 0 &&
-                <ShowFilterCurrentMode />
-            }
-            <StyledSongsContainer showRepeated={showRepeated}>
+                <StyledSongsContainer showRepeated={showRepeated} onClick={hideNonUnique}>
 
-                <ol title={playlistName1} onClick={hideNonUnique}>
-                    {songs1 && songs1.length > 0 &&
-                        filterSongs(songs1).map((song, idx) =>
-                            <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} />
-                            </div>
-                        )
-                    }
-                </ol>
-                <ol title={playlistName2} onClick={hideNonUnique}>
-                    {songs2 && songs2.length > 0 &&
-                        filterSongs(songs2).map((song, idx) =>
-                            <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
-                                <Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} />
-                            </div>
-                        )
-                    }
-                </ol>
-            </StyledSongsContainer>
+                    <StyledOL title={playlistName1} >
+                        {
+                            filterSongs(songs1).map((song, idx) =>
+                                <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} />
+                                </div>
+                            )
+                        }
+                    </StyledOL>
+                    <StyledOL title={playlistName2} >
+                        {
+                            filterSongs(songs2).map((song, idx) =>
+                                <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
+                                    <Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random() + 1.1} />
+                                </div>
+                            )
+                        }
+                    </StyledOL>
+                </StyledSongsContainer>
+            }
+
         </>
     )
 }
