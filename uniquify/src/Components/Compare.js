@@ -6,7 +6,7 @@ import { Header } from '../Components/Header'
 import { CompareForm } from '../Components/CompareForm'
 export const Compare = () => {
 
-    const [showCompare, setShowCompare] = useState(false)
+    const [showCompare, setShowCompare] = useState(true)
 
     useEffect(() => {
         AOS.init()
