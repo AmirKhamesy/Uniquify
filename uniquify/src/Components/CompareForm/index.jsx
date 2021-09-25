@@ -49,6 +49,7 @@ ${media.mobile} {
 }
 `
 
+
 const StyledButton = styled.button`
 cursor: pointer;
 border-radius: 20px;
@@ -106,21 +107,27 @@ background-repeat: no-repeat;
 background-size: contain;
 background-attachment: fixed;
 background-position: bottom 10px right 50%;
-position: absolute;
+position: relative;
 width: 100vw;
 display: flex;
 justify-content:space-around ;
-overflow-x: hidden;
+overflow:  hidden;
+
 `
 
 const StyledOL = styled.ol`
+display: flex;
+flex-direction: column;
+align-items: flex-start;
 list-style-type: none;
 li {
+
   background: #dcdcdc;
   padding: 1rem;
   border-radius: 10px;
   color: #1a1a1a;
   padding:  1vmax;
+  margin:  0.66vmax;
 }
 `
 
@@ -131,7 +138,7 @@ export const CompareForm = () => {
     const [list2, setList2] = useState("37i9dQZF1DXcBWIGoYBM5M")
     const [songs1, setSongs1] = useState([])
     const [songs2, setSongs2] = useState([])
-    const [showRepeated, setShowRepeated] = useState("all")
+    const [showRepeated, setShowRepeated] = useState("repeated")
     const [playlistName1, setPlaylistName1] = useState("")
     const [playlistName2, setPlaylistName2] = useState("")
     const [loading, setLoading] = useState(false)
@@ -268,8 +275,8 @@ export const CompareForm = () => {
 
             {songs1.length > 0 && songs2.length > 0 &&
                 <StyledSongsContainer showRepeated={showRepeated} onClick={hideNonUnique}>
-
                     <StyledOL title={playlistName1} >
+                        <StyledLabel>{playlistName1}</StyledLabel>
                         {
                             filterSongs(songs1).map((song, idx) =>
                                 <div key={"SongDiv" + idx + + Math.random()} data-aos="fade-down"><Song name={song["name"]} repeated={song["repeated"]} key={song["name"] + Math.random()} />
@@ -278,6 +285,7 @@ export const CompareForm = () => {
                         }
                     </StyledOL>
                     <StyledOL title={playlistName2} >
+                        <StyledLabel>{playlistName2}</StyledLabel>
                         {
                             filterSongs(songs2).map((song, idx) =>
                                 <div key={"SongDiv" + idx + Math.random() + 1.1} data-aos="fade-down">
