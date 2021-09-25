@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from "styled-components";
 import Typewriter from 'typewriter-effect';
+import { Header } from '../Header'
+
+const media = {
+    mobile: '@media (max-width: 768px)'
+}
 
 const StyledHomePage = styled.div`
 background-color: white;
@@ -9,7 +14,7 @@ position: absolute;
 `
 const SytledImage = styled.img`
 max-width: 60%;
-@media (max-width: 768px) {
+${media.mobile} {
     max-width: 100%;
 margin: auto;
 }
@@ -29,7 +34,7 @@ cursor: pointer;
     width: 15vmax;
     height: 4vmax;
     background-color: #a0d195;
-    box-shadow: 0 20px 20px rgb(0 0 0 / 40%);
+    /* box-shadow: 0 20px 20px rgb(0 0 0 / 40%); */
     color: #fff;
     border: none;   
     outline: none;
@@ -39,15 +44,6 @@ cursor: pointer;
     &:hover{
         width: 20vmax;
     }
-`
-const StyledHeaderText = styled.h1`
-margin: 1.5rem;
-font-size: 5vh;
-color: #a0d195;
-font-weight: 700;
-@media (max-width: 768px) {
-    font-size: 4vh;
-}
 `
 const DetailsContainer = styled.div`
 display: grid;
@@ -61,7 +57,7 @@ color: #a0d195;
 /* color: #1a1a1a; */
 font-weight: 600;
 font-size: 5vmin;
-@media (max-width: 768px) {
+${media.mobile} {
     margin: 1rem;
 }
 `
@@ -70,7 +66,7 @@ margin: 1rem 0;
 color: #1a1a1a;
 font-weight: 300;
 font-size: 1.75vmax;
-@media (max-width: 768px) {
+${media.mobile} {
     margin: 1rem;
 }
 
@@ -81,7 +77,7 @@ display: flex;
 flex-direction: ${props => props.flipped ? "row" : "row-reverse"};
 justify-content: space-evenly;
 margin: 5vmax;
-@media (max-width: 768px) {
+${media.mobile} {
     flex-direction: column-reverse;
 }
 `
@@ -113,8 +109,7 @@ padding: 0 0 1rem 0;
 export const LandingPage = ({ show }) => {
     return (
         <StyledHomePage>
-            <StyledHeaderText>Uniquify</StyledHeaderText>
-
+            <Header />
             <DetailsContainer>
                 <StyledDetailh2>
                     <Typewriter

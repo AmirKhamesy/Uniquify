@@ -1,6 +1,6 @@
 import React from 'react';
 import '../CSS/App.css';
-import Compare from "../Components/Compare";
+import { Compare } from "../Components/Compare";
 
 
 function Home() {
