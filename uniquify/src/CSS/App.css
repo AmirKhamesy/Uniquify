@@ -37,13 +37,13 @@
 } */
 
 /* #198d42 */
-
+/* 
 h3 {
   font-size: 1.8em;
   margin: auto;
-}
+} */
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   #list1,
   #list2 {
     padding-inline-start: 1.8em;
@@ -58,4 +58,4 @@ h3 {
     padding-inline-end: 0.2em;
     width: 16em;
   }
-}
+} */
