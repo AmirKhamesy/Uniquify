@@ -32,8 +32,8 @@ app.use(require("body-parser").json())
 // const clientId = '5e93e86ebd0240ad82397fb370e29a52',
 //     clientSecret = 'f4dad63343d149adbe219220c81624e6';
 
-const clientId = process.env.Key.clientId,
-    clientSecret = process.env.Key.clientSecret;
+// const clientId = process.env.Key.clientId,
+//     clientSecret = process.env.Key.clientSecret;
 
 
 const spotifyApi = new SpotifyWebApi({
