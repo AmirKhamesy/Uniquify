@@ -27,11 +27,6 @@ app.use(express.json())
 app.use(require("body-parser").json())
 
 
-
-// //GITHUB keys
-// const clientId = '5e93e86ebd0240ad82397fb370e29a52',
-//     clientSecret = 'f4dad63343d149adbe219220c81624e6';
-
 const clientId = process.env.clientId,
     clientSecret = process.env.clientSecret;
 
