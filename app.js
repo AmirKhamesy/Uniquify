@@ -28,13 +28,17 @@ app.use(require("body-parser").json())
 
 
 
-//GITHUB keys
-const clientId = '5e93e86ebd0240ad82397fb370e29a52',
-clientSecret = 'f4dad63343d149adbe219220c81624e6';
+// //GITHUB keys
+// const clientId = '5e93e86ebd0240ad82397fb370e29a52',
+//     clientSecret = 'f4dad63343d149adbe219220c81624e6';
+
+const clientId = process.env.Key.clientId,
+    clientSecret = process.env.Key.clientSecret;
+
 
 const spotifyApi = new SpotifyWebApi({
-clientId: clientId,
-clientSecret: clientSecret
+    clientId: clientId,
+    clientSecret: clientSecret
 });
 
 let token = {
@@ -43,11 +47,11 @@ let token = {
 
 const getNewToken = async () => {
     let data = await spotifyApi.clientCredentialsGrant()
-    if(!data){
+    if (!data) {
         console.log("failed to get token from spotify");
     }
     token.token = data.body['access_token'];
-    token.expire = Math.round(Date.now()/1000) + data.body['expires_in'] - 5;
+    token.expire = Math.round(Date.now() / 1000) + data.body['expires_in'] - 5;
     spotifyApi.setAccessToken(data.body['access_token']);
 }
 
@@ -57,43 +61,43 @@ getNewToken();
 const getSongs = async (playlistID) => {
     let songs = [];
     let response;
-    try{
+    try {
         response = await spotifyApi.getPlaylistTracks(playlistID, { offset: 0, limit: 100 });
         songs = songs.concat(response.body.items);
-    }catch{
+    } catch {
         console.log("failed to get some songs");
-        return {error: "playlist not found"}
+        return { error: "playlist not found" }
     }
     arrayLength1 = response.body.total;
 
-    for(let i = songs.length; i < arrayLength1; i += 100){
-        try{
+    for (let i = songs.length; i < arrayLength1; i += 100) {
+        try {
             response = await spotifyApi.getPlaylistTracks(playlistID, { offset: i, limit: 100 })
             songs = songs.concat(response.body.items);
-        }catch{
+        } catch {
             console.log("filed to get some songs");
-            return {error: "failed to get all songs from playlist"}
+            return { error: "failed to get all songs from playlist" }
         }
     }
 
-    return songs.map(song => `${song.track.name} ${'\n\n'} ${song.track.album.artists[0]['name']}`); 
+    return songs.map(song => `${song.track.name} ${'\n\n'} ${song.track.album.artists[0]['name']}`);
 }
 
 const getPlaylistName = async (playlistID) => {
     let playlistName = "";
     let response;
-    try{
+    try {
         response = await spotifyApi.getPlaylist(playlistID);
         playlistName = response.body["name"];
-    }catch{
-        return {error: "failed to get playlist name"}
+    } catch {
+        return { error: "failed to get playlist name" }
     }
     return playlistName;
 }
 
 console.log(path.join(__dirname, 'uniquify/build', 'index.html'))
 
-app.get("/", (req,res)=> {
+app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'uniquify/build', 'index.html'));
 })
 
@@ -101,9 +105,9 @@ app.get("/compare", async (req, res) => {
     // console.log(req.query.song1);+
     // console.log(req.query.song2);+
 
-    if(Date.now()/1000 > token.expire) await getNewToken();
+    if (Date.now() / 1000 > token.expire) await getNewToken();
 
-    if(!req.query.song1 || !req.query.song2) {
+    if (!req.query.song1 || !req.query.song2) {
         res.send("improper usage of API");
         return;
     };
@@ -111,32 +115,32 @@ app.get("/compare", async (req, res) => {
     var error = undefined;
     // console.log('The access token expires in ' + data.body['expires_in']);
     // console.log('The access token is ' + data.body['access_token']);
-    
+
     let playlistName1 = await getPlaylistName(req.query.song1);
     let playlistName2 = await getPlaylistName(req.query.song2);
 
     let songs1 = await getSongs(req.query.song1);
 
-    if(songs1.error){
+    if (songs1.error) {
         res.json(songs1.error);
         return;
     }
 
     let songs2 = await getSongs(req.query.song2);
 
-    if(songs2.error){
+    if (songs2.error) {
         res.json(songs2.error);
         return;
     }
 
-    
+
 
     // console.log(playlistName1)
     // console.log(playlistName2)
 
     console.log(songs1.length);
     console.log(songs2.length);
-    
+
     res.json({
         songs1,
         songs2,
@@ -145,7 +149,11 @@ app.get("/compare", async (req, res) => {
     });
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}! (root)`))
+app.listen(port, () => {
+    console.log(`process.env`, process.env)
+    console.log(`Example app listening on port ${port}! (root)`)
+}
+)
 
 
 
