@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled, { keyframes } from "styled-components";
+
 import Song from "../Song";
 import repeated from "../../Assets/InnerJoin.png"
 import unique from "../../Assets/OutterJoin.png"
@@ -108,28 +109,27 @@ background-size: contain;
 background-attachment: fixed;
 background-position: bottom 10px right 50%; */
 position: relative;
-width: 100vw;
 display: flex;
 margin:0;
-justify-content:space-around ;
+justify-content:space-evenly ;
 overflow:  hidden;
 
 `
 
 const StyledOL = styled.ol`
+padding: 0;
+margin: 0;
 display: flex;
 flex-direction: column;
-align-items: flex-start;
 list-style-type: none;
-li {
-    width: 30vmin;
 
-  background: #dcdcdc;
-  padding: 1rem;
-  border-radius: 10px;
-  color: #1a1a1a;
-  padding:  1vmax;
-  margin:  0.66vmax;
+li {
+width: 75%;
+background: #dcdcdc;
+border-radius: 10px;
+color: #1a1a1a;
+padding:  1vmax;
+margin:  0.66vmax auto;
 }
 `
 
