@@ -63,7 +63,7 @@ font-size: 1.6vmax;
 transition: .3s;
 //center
 position: relative;
-margin-top: 3vmin;
+margin-top: 4vmin;
 left: 50%;
 -ms-transform: translate(-50%, -50%);
 transform: translate(-50%, -50%);
@@ -102,14 +102,15 @@ animation: ${spin} 2s linear infinite;
 background: rgba(255, 255, 255, 0.8) 50% 50% no-repeat;
 `
 const StyledSongsContainer = styled.div`
-background-image: url(${props => props.showRepeated === "unique" ? repeated : props.showRepeated === "repeated" ? all : unique});
+/* background-image: url(${props => props.showRepeated === "unique" ? repeated : props.showRepeated === "repeated" ? all : unique});
 background-repeat: no-repeat;
 background-size: contain;
 background-attachment: fixed;
-background-position: bottom 10px right 50%;
+background-position: bottom 10px right 50%; */
 position: relative;
 width: 100vw;
 display: flex;
+margin:0;
 justify-content:space-around ;
 overflow:  hidden;
 
@@ -121,6 +122,7 @@ flex-direction: column;
 align-items: flex-start;
 list-style-type: none;
 li {
+    width: 30vmin;
 
   background: #dcdcdc;
   padding: 1rem;
@@ -192,8 +194,8 @@ export const CompareForm = () => {
 
                     comparePlaylist(res.songs1, res.songs2);
                     addPlaylistName(res.playlistName1, res.playlistName2);
-                    setLoading(false)
                     //HIDE loading
+                    setLoading(false)
                 })
         } catch {
             console.log("failed to fetch");
