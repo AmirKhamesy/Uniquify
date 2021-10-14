@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './CSS/index.css';
-import Home from './Pages/Home';
+
+import { Compare } from "./Components/Compare";
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+//remove this
+import './CSS/index.css';
+
 
 AOS.init()
 ReactDOM.render(
 
   <React.StrictMode>
-    <Home />
+    <Compare />
 
   </React.StrictMode >,
   document.getElementById('root')
