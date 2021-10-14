@@ -2,21 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './CSS/index.css';
 import Home from './Pages/Home';
-import * as serviceWorker from './serviceWorker';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Box, Text, Image } from 'grommet'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { StyleSheetManager } from 'styled-components';
 
-// const styles = {
-//   link: {
-//     textDecoration: 'none',
-//     color: 'white',
-//   },
-
-// }
 AOS.init()
 ReactDOM.render(
 
@@ -50,9 +41,3 @@ ReactDOM.render(
   </React.StrictMode >,
   document.getElementById('root')
 );
-
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
