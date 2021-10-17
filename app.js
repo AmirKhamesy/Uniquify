@@ -133,8 +133,8 @@ app.get("/compare", async (req, res) => {
     // console.log(playlistName1)
     // console.log(playlistName2)
 
-    console.log(songs1.length);
-    console.log(songs2.length);
+    // console.log(songs1.length);
+    // console.log(songs2.length);
 
     res.json({
         songs1,
@@ -145,7 +145,7 @@ app.get("/compare", async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`process.env`, process.env)
+    // console.log(`process.env`, process.env)
     console.log(`Example app listening on port ${port}! (root)`)
 }
 )
